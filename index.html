@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <!---Student Name: Lorenzo Laurel Reyes--->
+    <!---Class Batch: WD92P (ZetoRo)---------->
+    <!---Schedule: 7:00pm to 10:00pm---------->
+    <!---Instructor: Ma'am Jamie Delina------->
+    <!---Coordinator: Sir Ben De Leon--------->
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Array Methods</title>
+
+        <style>
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .container {
+                text-align: center;
+            }
+
+            button {
+                padding: 8px;
+                cursor: pointer;
+            }
+
+            #results {
+                font-family: 'Times New Roman', sans-serif;
+                white-space-collapse: no-wrap;
+                border: 1px solid #770b0b;
+                padding: 10px;
+                text-align: left;
+                margin: 5px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <label for="userInput">Enter 5 Fruits (comma-separated):</label>
+            <input type="text" id="userInput" placeholder="e.g., Apple, Banana, Orange, Grape, Watermelon">
+            
+            <button onclick="arrayMethods()">Perform Array Methods</button>
+
+            <button onclick="reset()">Reset</button>
+
+            <h3>Results:</h3>
+
+            <pre id="results"></pre>
+        </div>
+
+        <script>
+            function arrayMethods() {
+                var userInput = document.getElementById('userInput').value;
+                var userArray = userInput.split(',').map(item => item.trim());
+
+                //  This displays the User-Input array. 
+                //  As discuss with the display method using back apostrophe plus new researched "JSON" (JavaScript Object Notation).
+                document.getElementById('results').innerHTML = `<strong>User's Array:</strong>\n${JSON.stringify(userArray)}\n\n`;
+
+                //  This is to declare the variable for evaluated results per array method performed on the User-Input array.
+                var resultsEvaluated = document.getElementById('results');
+
+                //  Application of "sort()" array method.
+                var sortedArray = userArray.slice().sort();
+                displayResult('Using sort() array method', sortedArray);
+
+                //  Application of "copyWithin()" array method.
+                var copyWithinArray = userArray.slice(); // Create a copy of the array
+                copyWithinArray.copyWithin(1, 3, 5);
+                displayResult('Using copyWithin() method', copyWithinArray);
+
+                //  Application of "concat()" array method.
+                var concatenatedArray = userArray.concat(['Mango', 'Pineapple']);
+                displayResult('Using concat() array method', concatenatedArray);
+
+                //  Application of "map()" array method.
+                var mappedArray = userArray.map(function(fruit) {
+                    return fruit.toUpperCase();
+                });
+                displayResult('Using map() array method', mappedArray);
+
+                //  Application of "pop()" array method.
+                var poppedItem = userArray.pop();
+                displayResult('Using pop() array method', poppedItem);
+
+                //  Application of "push()" array method.
+                userArray.push('Kiwi', 'Peach');
+                displayResult('Using push() array method', userArray);
+
+                //  Application of "reverse()" array method.
+                var reversedArray = userArray.slice().reverse();
+                displayResult('Using reverse() array method', reversedArray);
+
+                //  Application of "shift()" array method.
+                var shiftedItem = userArray.shift();
+                displayResult('Using shift() array method', shiftedItem);
+
+                //  Application of "unshift()" array method.
+                var unshiftedLength = userArray.unshift('Lemon', 'Grapefruit');
+                displayResult('Using unshift() array method', userArray, 'New length: ' + unshiftedLength);
+
+                //  Application of "values()" array method.
+                var valuesArray = userArray.values();
+                displayResult('Using values() array method', Array.from(valuesArray));
+            }
+
+            //  This function displays the results further for every array method use.
+            function displayResult(method, result, additionalInfo = '') {
+                var resultsEvaluated = document.getElementById('results');
+                resultsEvaluated.innerHTML += `<strong>${method}:</strong>\n${JSON.stringify(result)}\n${additionalInfo}\n\n`;
+            }
+
+            //  This function resets the "User-Input" field and "Results" field.
+            function reset() {
+                document.getElementById('userInput').value = '';
+                document.getElementById('results').innerHTML = '<h3></h3>';
+            }
+        </script>
+    </body>
+</html>
